@@ -1,0 +1,20 @@
+# Required to run the project under the correct environment
+language: php
+
+# Versions of PHP to run the project with
+php:
+    - '7.0'
+    - '7.1'
+
+# Commands to be run before the environment runs
+before_script:
+    - composer self-update
+    - composer install --prefer-source --no-interaction --dev
+
+# Commands to run which will verify the build
+script: vendor/bin/phpunit -c tests/
+
+# Notifications
+notifications:
+    on_success: always
+    on_failure: always
