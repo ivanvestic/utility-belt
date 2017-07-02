@@ -4,9 +4,14 @@
  * http://ivanvestic.com
  */
 
+namespace IvanVestic\UtilityBelt\Tests\Unit;
+
 use IvanVestic\UtilityBelt\JsonUtility;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class JsonUtilityTest
+ */
 class JsonUtilityTest extends TestCase
 {
 

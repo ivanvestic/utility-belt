@@ -4,11 +4,17 @@
  * http://ivanvestic.com
  */
 
+namespace IvanVestic\UtilityBelt\Tests\Unit;
+
 use IvanVestic\UtilityBelt\TypeJugglingUtility;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class TypeJugglingUtilityTest
+ */
 class TypeJugglingUtilityTest extends TestCase
 {
+
     /**
      *
      */

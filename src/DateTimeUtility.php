@@ -59,7 +59,7 @@ class DateTimeUtility
      */
     public static function getZeroDateTime()
     {
-        return DateTime::createFromFormat(self::mysqlDateTimeFormat(), self::getZeroDateTimeString());;
+        return DateTime::createFromFormat(self::mysqlDateTimeFormat(), self::getZeroDateTimeString());
     }
 
     /**
@@ -69,6 +69,10 @@ class DateTimeUtility
      */
     public static function isZeroDateTime($dt)
     {
+        if (self::getZeroDateTimeString() === $dt) {
+            return true;
+        }
+
         $dtParsed = self::parseDateTime($dt);
 
         if (!self::isParsedDateTimeValid($dtParsed, false)) {
@@ -86,6 +90,27 @@ class DateTimeUtility
     public static function isValidTimezone(string $timezone)
     {
         return (in_array($timezone, DateTimeZone::listIdentifiers())) ? true : false;
+    }
+
+    /**
+     * Validate $dt timestamp format
+     * Will validate only strictly valid datetime strings,
+     * e.g. zero-datetime is not considered to be a strictly valid datetime string
+     *
+     * @param string $dt
+     * @param string $format
+     *
+     * @return bool
+     */
+    public static function isValidFormat(string $dt, string $format)
+    {
+        if (($datetime = DateTime::createFromFormat($format, $dt)) instanceof DateTime
+            && $datetime->format($format) === $dt
+        ) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -152,20 +177,20 @@ class DateTimeUtility
             try {
                 $datetime = new DateTime($dt);
                 $errors = DateTime::getLastErrors();
-                if (!($datetime instanceof DateTime) && is_numeric($dt)) {
-                    $datetime = DateTime::createFromFormat(self::mysqlDateTimeFormat(), date(self::mysqlDateTimeFormat(), $dt));
-                    $errors = DateTime::getLastErrors();
+                if (!($datetime instanceof DateTime)) {
+                    if (is_numeric($dt)) {
+                        $datetime = DateTime::createFromFormat(self::mysqlDateTimeFormat(), date(self::mysqlDateTimeFormat(), $dt));
+                        $errors = DateTime::getLastErrors();
+                    }
+                    else {
+                        $datetime = DateTime::createFromFormat(self::mysqlDateTimeFormat(), $datetime->format(self::mysqlDateTimeFormat()));
+                        $errors = DateTime::getLastErrors();
+                    }
                 }
             }
             catch (\Exception $e) {
-                if (is_numeric($dt)) {
-                    $datetime = DateTime::createFromFormat(self::mysqlDateTimeFormat(), date(self::mysqlDateTimeFormat(), $dt));
-                    $errors = DateTime::getLastErrors();
-                }
-                else {
-                    $errors['error_count']++;
-                    $errors['errors'][] = $e->getMessage();
-                }
+                $errors['error_count']++;
+                $errors['errors'][] = $e->getMessage();
             }
         }
         elseif ($dt instanceof DateTime) {

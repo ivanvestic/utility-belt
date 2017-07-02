@@ -4,9 +4,14 @@
  * http://ivanvestic.com
  */
 
+namespace IvanVestic\UtilityBelt\Tests\Unit;
+
 use IvanVestic\UtilityBelt\DateTimeUtility;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class DateTimeUtilityTest
+ */
 class DateTimeUtilityTest extends TestCase
 {
 
@@ -45,7 +50,7 @@ class DateTimeUtilityTest extends TestCase
         $this->assertTrue((false === DateTimeUtility::isZeroDateTime($testValue)));
 
         $testValue = 0;
-        $this->assertTrue((false === DateTimeUtility::isZeroDateTime($testValue)));
+        $this->assertTrue((null === DateTimeUtility::isZeroDateTime($testValue)));
 
         $testValue = '0000-00-00 00:00:00';
         $this->assertTrue((true === DateTimeUtility::isZeroDateTime($testValue)));

@@ -81,10 +81,6 @@ class TypeJugglingUtility
 
             if (is_object($v) || is_array($v)) {
                 $v = self::convertObjectToArray($v, $blacklist, $filterByArrayKeyExists);
-
-            }
-            else {
-
             }
 
             $array[$k] = $v;

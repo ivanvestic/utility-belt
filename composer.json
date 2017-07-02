@@ -12,7 +12,7 @@
     "autoload": {
         "psr-4": {
             "IvanVestic\\UtilityBelt\\": "src/",
-            "Tests\\": "tests/"
+            "IvanVestic\\UtilityBelt\\Tests\\": "tests/"
         },
         "classmap": [
 
