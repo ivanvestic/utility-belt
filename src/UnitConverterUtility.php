@@ -7,7 +7,10 @@
 namespace IvanVestic\UtilityBelt;
 
 
-class UnitConvertorUtility
+/**
+ * Class UnitConverterUtility
+ */
+class UnitConverterUtility
 {
     /**
      * Convert bytes into K, M, G, T
