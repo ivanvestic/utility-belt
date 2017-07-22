@@ -152,8 +152,8 @@ class CollectionUtility
 
         // call the recursive anonymous function
         $result = $recursiveCollectionOverwriteAnonymousFunction(
-            ($collection1 = TypeJugglingUtility::convertObjectToArray($collection1)),
-            ($collection2 = TypeJugglingUtility::convertObjectToArray($collection2)),
+            ($collection1 = TypeJugglingUtility::convertCollectionToArray($collection1)),
+            ($collection2 = TypeJugglingUtility::convertCollectionToArray($collection2)),
             $collection2,
             $preserveDiff,
             $returnAsArray,
@@ -167,6 +167,6 @@ class CollectionUtility
             return null;
         }
 
-        return (!$returnAsArray) ? TypeJugglingUtility::convertArrayToObject($result) : $result;
+        return (!$returnAsArray) ? TypeJugglingUtility::convertCollectionToObject($result) : $result;
     }
 }

@@ -6,12 +6,12 @@
 
 namespace IvanVestic\UtilityBelt\Tests\Fixture;
 
-use IvanVestic\UtilityBelt\Object\AbstractDataValueObject;
+use IvanVestic\UtilityBelt\Object\AbstractValueObject;
 
 /**
  * Class DummyBookFixture
  */
-class DummyBookFixture extends AbstractDataValueObject
+class DummyBookFixture extends AbstractValueObject
 {
      /** @var string */
      protected $title;

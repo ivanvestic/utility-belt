@@ -61,5 +61,29 @@ class ObjectConstructionTraitViaDummyBookFixtureTest extends TestCase
         );
         $this->assertTrue(($book->title() === $title));
         $this->assertTrue(($book->author() === mb_strtoupper($author)));
+
+        // test ObjectConstructionTrait->setProperties
+        // 1. set some properties
+        // 2. set some properties via remap callback (by reference)
+        // 3. test if properties have been properly set
+        $book = new DummyBookFixture(
+            ['title' => $title, 'author' => $author],
+            ['author' => function(&$v) { $v = mb_strtoupper($v); }],
+            ['author' => true]
+        );
+        $this->assertTrue(($book->title() === $title));
+        $this->assertTrue(($book->author() === mb_strtoupper($author)));
+
+        // test ObjectConstructionTrait->setProperties
+        // 1. set some properties
+        // 2. set some properties via remap callback
+        //    (by reference, particular $callableRemapByRef property/key being undefined is expected to be the same as being set to true)
+        // 3. test if properties have been properly set
+        $book = new DummyBookFixture(
+            ['title' => $title, 'author' => $author],
+            ['author' => function(&$v) { $v = mb_strtoupper($v); }]
+        );
+        $this->assertTrue(($book->title() === $title));
+        $this->assertTrue(($book->author() === mb_strtoupper($author)));
     }
 }
