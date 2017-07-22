@@ -7,8 +7,39 @@
 namespace IvanVestic\UtilityBelt;
 
 
+/**
+ * Class TypeJugglingUtility
+ */
 class TypeJugglingUtility
 {
+
+    /**
+     * Determine "true" gettype value from a string type value
+     *
+     * @param $value
+     *
+     * @return bool|double|int|string
+     */
+    public static function getTrueTypeValue($value)
+    {
+        if (is_null($value) || is_resource($value) || is_object($value) || is_array($value)) {
+            return $value;
+        }
+
+        $string = mb_strtolower(trim((string)$value));
+        if ('0' != $string && empty($string)) {
+            // note: the '0' != $string is a must-have when checking empty afterwards
+            // @link: http://php.net/manual/en/types.comparisons.php
+            return '';
+        }
+        elseif (!preg_match("/[^0-9.]+/", $string)) {
+
+            return (preg_match("/[.]+/", $string)) ? (double)$string : (int)$string;
+        }
+
+        return (($string == "true") ? true : (($string == "false") ? false : (string)$string));
+    }
+
     /**
      * Convert any N-dimensional collection into a N-dimensional \stdClass object,
      * while preserving the same keys and the same order.

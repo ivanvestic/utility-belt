@@ -16,6 +16,33 @@ class TypeJugglingUtilityTest extends TestCase
 {
 
     /**
+     * @test
+     */
+    public function getTrueTypeValue()
+    {
+        // bool
+        $value = 'true';
+        $this->assertTrue(is_bool(TypeJugglingUtility::getTrueTypeValue($value)));
+        $value = 'false';
+        $this->assertTrue(is_bool(TypeJugglingUtility::getTrueTypeValue($value)));
+
+        // float/double
+        $value = '1.2';
+        $this->assertTrue((
+            is_float(TypeJugglingUtility::getTrueTypeValue($value))
+            && is_double(TypeJugglingUtility::getTrueTypeValue($value))
+        ));
+
+        // int
+        $value = '0';
+        $this->assertTrue(is_int(TypeJugglingUtility::getTrueTypeValue($value)));
+
+        // string
+        $value = '1,1';
+        $this->assertTrue(is_string(TypeJugglingUtility::getTrueTypeValue($value)));
+    }
+
+    /**
      *
      */
     public function testConvertArrayToObject()
