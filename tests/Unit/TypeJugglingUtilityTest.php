@@ -25,7 +25,7 @@ class TypeJugglingUtilityTest extends TestCase
         // expected result
         $expectedObject = new \stdClass();
         // the test
-        $this->assertTrue(($expectedObject == TypeJugglingUtility::convertArrayToObject($array)));
+        $this->assertTrue(($expectedObject == TypeJugglingUtility::convertCollectionToObject($array, false)));
 
         // original
         $array = ['a', 'b', 'c'];
@@ -35,7 +35,7 @@ class TypeJugglingUtilityTest extends TestCase
         $expectedObject->{1} = 'b';
         $expectedObject->{2} = 'c';
         // the test
-        $this->assertTrue(($expectedObject == TypeJugglingUtility::convertArrayToObject($array)));
+        $this->assertTrue(($expectedObject == TypeJugglingUtility::convertCollectionToObject($array, false)));
 
         // original
         $array = [
@@ -53,7 +53,7 @@ class TypeJugglingUtilityTest extends TestCase
         $expectedObject->c->b = 2;
         $expectedObject->d = 'durian';
         // the test
-        $this->assertTrue(($expectedObject == TypeJugglingUtility::convertArrayToObject($array)));
+        $this->assertTrue(($expectedObject == TypeJugglingUtility::convertCollectionToObject($array, false)));
 
         // original
         $array = [
@@ -73,7 +73,7 @@ class TypeJugglingUtilityTest extends TestCase
         $expectedObject->e = new \stdClass();
         $expectedObject->e->a = 1;
         // the test
-        $this->assertTrue(($expectedObject == TypeJugglingUtility::convertArrayToObject($array, $blacklist)));
+        $this->assertTrue(($expectedObject == TypeJugglingUtility::convertCollectionToObject($array, false, $blacklist)));
 
         // original
         $array = [
@@ -94,7 +94,7 @@ class TypeJugglingUtilityTest extends TestCase
         $expectedObject->e = new \stdClass();
         $expectedObject->e->c = 2;
         // the test
-        $this->assertTrue(($expectedObject == TypeJugglingUtility::convertArrayToObject($array, $blacklist)));
+        $this->assertTrue(($expectedObject == TypeJugglingUtility::convertCollectionToObject($array, false, $blacklist)));
 
         // original
         $array = [
@@ -115,7 +115,7 @@ class TypeJugglingUtilityTest extends TestCase
         $expectedObject->e = new \stdClass();
         $expectedObject->e->c = 2;
         // the test
-        $this->assertTrue(($expectedObject == TypeJugglingUtility::convertArrayToObject($array, $blacklist, true)));
+        $this->assertTrue(($expectedObject == TypeJugglingUtility::convertCollectionToObject($array, false, $blacklist, true)));
     }
 
     /**
@@ -128,7 +128,7 @@ class TypeJugglingUtilityTest extends TestCase
         // expected result
         $expectedArray = [];
         // the test
-        $this->assertTrue(($expectedArray == TypeJugglingUtility::convertObjectToArray($object)));
+        $this->assertTrue(($expectedArray == TypeJugglingUtility::convertCollectionToArray($object, false)));
 
         // original
         $object = new \stdClass();
@@ -138,7 +138,7 @@ class TypeJugglingUtilityTest extends TestCase
         // expected result
         $expectedArray = ['a', 'b', 'c'];
         // the test
-        $this->assertTrue(($expectedArray == TypeJugglingUtility::convertObjectToArray($object)));
+        $this->assertTrue(($expectedArray == TypeJugglingUtility::convertCollectionToArray($object, false)));
 
         // original
         $object = new \stdClass();
@@ -156,7 +156,7 @@ class TypeJugglingUtilityTest extends TestCase
             'd' => 'durian'
         ];
         // the test
-        $this->assertTrue(($expectedArray == TypeJugglingUtility::convertObjectToArray($object)));
+        $this->assertTrue(($expectedArray == TypeJugglingUtility::convertCollectionToArray($object, false)));
 
         // original
         $object = new \stdClass();
@@ -179,7 +179,7 @@ class TypeJugglingUtilityTest extends TestCase
             'e' => ['a' => 1]
         ];
         // the test
-        $this->assertTrue(($expectedArray == TypeJugglingUtility::convertObjectToArray($object, $blacklist)));
+        $this->assertTrue(($expectedArray == TypeJugglingUtility::convertCollectionToArray($object, false, $blacklist)));
 
         // original
         $object = new \stdClass();
@@ -202,7 +202,7 @@ class TypeJugglingUtilityTest extends TestCase
             'e' => ['c' => 2]
         ];
         // the test
-        $this->assertTrue(($expectedArray == TypeJugglingUtility::convertObjectToArray($object, $blacklist)));
+        $this->assertTrue(($expectedArray == TypeJugglingUtility::convertCollectionToArray($object, false, $blacklist)));
 
         // original
         $object = new \stdClass();
@@ -225,7 +225,7 @@ class TypeJugglingUtilityTest extends TestCase
             'e' => ['c' => 2]
         ];
         // the test
-        $this->assertTrue(($expectedArray == TypeJugglingUtility::convertObjectToArray($object, $blacklist, true)));
+        $this->assertTrue(($expectedArray == TypeJugglingUtility::convertCollectionToArray($object, false, $blacklist, true)));
 
         // original
         $object = new \stdClass();
@@ -239,7 +239,7 @@ class TypeJugglingUtilityTest extends TestCase
         $object->e->a = 1;
         $object->e->c = 2;
         // the test
-        $this->assertTrue((TypeJugglingUtility::convertObjectToArray(TypeJugglingUtility::convertArrayToObject($object)) === TypeJugglingUtility::convertObjectToArray($object)));
+        $this->assertTrue((TypeJugglingUtility::convertCollectionToArray(TypeJugglingUtility::convertCollectionToObject($object)) === TypeJugglingUtility::convertCollectionToArray($object)));
 
     }
 }
